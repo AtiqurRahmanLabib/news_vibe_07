@@ -32,7 +32,6 @@ export default async function Home() {
             <MainNews news={mainNews} />
           </div>
 
-          {/* Sidebar / Advertisement */}
           <div className="rounded-2xl border border-gray-200 bg-white shadow-sm">
             <MostRead />
           </div>
