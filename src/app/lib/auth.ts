@@ -1,16 +1,19 @@
+// src/app/lib/auth.ts
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 
-const client = new MongoClient(process.env.MONGODB_URL as string);
+const uri = process.env.MONGODB_URL;
 
+if (!uri) {
+  throw new Error("MONGODB_URL is not defined in environment variables");
+}
+
+const client = new MongoClient(uri);
 const db = client.db("News-Vibe-07");
 
 export const auth = betterAuth({
-  emailAndPassword: {
-    enabled: true,
-  },
-
+  emailAndPassword: { enabled: true },
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -21,7 +24,6 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
   },
-
   account: {
     accountLinking: {
       enabled: true,
@@ -29,8 +31,5 @@ export const auth = betterAuth({
       disableImplicitLinking: false,
     },
   },
-
-  database: mongodbAdapter(db, {
-    client,
-  }),
+  database: mongodbAdapter(db, { client }),
 });
