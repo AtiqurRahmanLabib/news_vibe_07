@@ -13,10 +13,12 @@ const client = new MongoClient(uri);
 const db = client.db("News-Vibe-07");
 
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL,          // <-- নতুন
-  trustedOrigins: [                              // <-- নতুন
+  baseURL: process.env.BETTER_AUTH_URL, // <-- নতুন
+  trustedOrigins: [
+    // <-- নতুন
     "http://localhost:3000",
     "https://YOUR-APP.vercel.app",
+    "https://newsvibe07-git-main-atiqurrahmanlabibs-projects.vercel.app",
   ],
   emailAndPassword: { enabled: true },
   socialProviders: {
